@@ -11,6 +11,10 @@ UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+@app.route('/hello')
+def hello():
+    return "Hello, welcome to the Flask app!"
+    
 @app.route('/process_audio', methods=['POST'])
 def process_audio():
     audio_files = [f for f in request.files.values()]
