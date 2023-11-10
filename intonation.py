@@ -2,15 +2,21 @@ import random
 import sys
 from random import randint
 from numpy import cumsum
-import wave
-import contextlib
+from pydub import AudioSegment
 
 # Reading audio file
 audioFile = sys.argv[1]
-with contextlib.closing(wave.open(audioFile, 'r')) as f:
-    frames = f.getnframes()
-    rate = f.getframerate()
-    dur = frames / float(rate)
+audio_format = audioFile.split('.')[-1].lower()
+
+# Handle different audio formats
+if audio_format == 'wav':
+    audio = AudioSegment.from_wav(audioFile)
+elif audio_format == 'm4a':
+    audio = AudioSegment.from_file(audioFile, format='m4a')
+else:
+    raise ValueError("Unsupported file format")
+
+dur = len(audio) / 1000.0  # Duration in seconds
 
 # Preparing the data
 N = randint(3, 7)
@@ -44,7 +50,7 @@ with open(outFileName, "w") as outFile:
     outFile.write("\"phoneme\":[")
     outFile.write(",".join("\"%3.2f\"" % i for i in syl_scores))
     outFile.write("],\n")
-    outFile.write("\"lables\":[")
+    outFile.write("\"labels\":[")
     outFile.write(",".join("\"%s\"" % i for i in syls))
     outFile.write("],\n")
     outFile.write("\"values\":[")
@@ -56,5 +62,6 @@ with open(outFileName, "w") as outFile:
     outFile.write("\"details\":[")
     outFile.write(",".join("{\"text\":\"%s\"}" % i for i in modText))
     outFile.write("\n]\n}")
+    outFile.write("\n")
 
 print(outFileName)
