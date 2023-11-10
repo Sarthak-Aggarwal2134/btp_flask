@@ -6,7 +6,7 @@ import wave
 import contextlib
 
 # Reading audio file
-# audioFile = sys.argv[1]
+audioFile = sys.argv[1]
 # with contextlib.closing(wave.open(audioFile, 'r')) as f:
 #     frames = f.getnframes()
 #     rate = f.getframerate()
