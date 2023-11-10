@@ -8,6 +8,7 @@ from pydub import AudioSegment
 audioFile = sys.argv[1]
 audio_format = audioFile.split('.')[-1].lower()
 
+print(audio_format)
 # Handle different audio formats
 if audio_format == 'wav':
     audio = AudioSegment.from_wav(audioFile)
