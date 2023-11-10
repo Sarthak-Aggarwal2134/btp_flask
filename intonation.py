@@ -50,7 +50,7 @@ with open(outFileName, "w") as outFile:
     outFile.write("\"phoneme\":[")
     outFile.write(",".join("\"%3.2f\"" % i for i in syl_scores))
     outFile.write("],\n")
-    outFile.write("\"labels\":[")
+    outFile.write("\"lables\":[")
     outFile.write(",".join("\"%s\"" % i for i in syls))
     outFile.write("],\n")
     outFile.write("\"values\":[")
