@@ -2,23 +2,18 @@ import random
 import sys
 from random import randint
 from numpy import cumsum
-from pydub import AudioSegment
+import wave
+import contextlib
 
 # Reading audio file
-audioFile = sys.argv[1]
-audio_format = audioFile.split('.')[-1].lower()
+# audioFile = sys.argv[1]
+# with contextlib.closing(wave.open(audioFile, 'r')) as f:
+#     frames = f.getnframes()
+#     rate = f.getframerate()
+#     dur = frames / float(rate)
 
-print(audio_format)
-# Handle different audio formats
-if audio_format == 'wav':
-    audio = AudioSegment.from_wav(audioFile)
-elif audio_format == 'm4a':
-    audio = AudioSegment.from_file(audioFile, format='m4a')
-else:
-    raise ValueError("Unsupported file format")
-
-dur = len(audio) / 1000.0  # Duration in seconds
-
+#  select dur randomly
+dur = random.random() * 100000
 # Preparing the data
 N = randint(3, 7)
 bar_score_len = randint(7, 12)
@@ -63,6 +58,5 @@ with open(outFileName, "w") as outFile:
     outFile.write("\"details\":[")
     outFile.write(",".join("{\"text\":\"%s\"}" % i for i in modText))
     outFile.write("\n]\n}")
-    outFile.write("\n")
 
 print(outFileName)
